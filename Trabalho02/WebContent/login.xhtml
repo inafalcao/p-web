@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC " -//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Login</title>
+	
+	<link href="login.css" rel="stylesheet" type="text/css" />
+
+</h:head>
+
+<h:body>
+
+	<!-- <span href="#" class="button" id="toggle-login">Log in</span> -->
+
+	<h:messages  showDetail="true" styleClass="alert" />
+
+	<div style="margin-top: 5%;">
+
+		<div id="login">
+
+			<div id="triangle"></div>
+			<h1>Log in</h1>
+
+			<h:form>
+
+				<h:panelGrid columns="1" cellspacing="20">
+					<h:panelGrid columns="1">
+						<h:outputText type="email" value="Login"></h:outputText>
+						<h:inputText type="password" value="#{usuarioBean.entity.login}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="1">
+						<h:outputText value="Senha"></h:outputText>
+						<h:inputSecret  value="#{usuarioBean.entity.senha}" />
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:commandButton style="margin-top: 20px;" value="Entrar"
+					type="submit" action="#{usuarioBean.autenticar}" />
+				
+				<h:link style="text-align: center;"   value="Ainda não é cadastrado?" outcome="cadastro"></h:link>
+
+			</h:form>
+		</div>
+
+	</div>
+
+</h:body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC " -//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Cadastro</title>
+	
+	<link href="login.css" rel="stylesheet" type="text/css" />
+
+</h:head>
+
+<h:body>
+
+	<h:messages  showDetail="true" styleClass="alert" />
+	
+	<div style="margin-top: 5%;">
+
+		<div id="login">
+
+			<div id="triangle"></div>
+			<h1>Cadastro</h1>
+
+			<h:form>
+				<h:panelGrid columns="1" cellspacing="20">
+					<h:panelGrid columns="1">
+						<h:outputText type="email" value="Login"></h:outputText>
+						<h:inputText type="password" value="#{cadastroBean.entity.login}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="1">
+						<h:outputText value="Senha"></h:outputText>
+						<h:inputSecret  value="#{cadastroBean.entity.senha}" />
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:commandButton style="margin-top: 20px;" value="Cadastrar"
+					type="submit" action="#{cadastroBean.save}" />
+
+			</h:form>
+		</div>
+
+	</div>
+
+</h:body>
+
+</html>

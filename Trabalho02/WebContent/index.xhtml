@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC " -//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+
+	<title>Uploader</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript"	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+	<script type="text/javascript" src="jquery.leanModal.min.js"></script>
+
+</h:head>
+
+<h:body>
+
+	<header class="content-header">
+		<div class="header-information pull-left">
+			
+			<!-- <s:url var="urlVoltarBotao" action="voltar-botao">
+			</s:url> -->
+			<a href="" class="btn btn-icon pull-left">
+				<i class="fa fa-arrow-circle-left"></i>
+			</a>
+			
+			<h1 class="content-title pull-right">
+				<!-- <s:property value="diretorioAtual" /> -->
+				dir atual
+			</h1>
+		</div>
+
+		<div class="header-actions pull-right">
+			<div class="btn-group">
+				<a id="showDialogUpload" rel="leanModal" href="#modalUpload" class="btn btn-icon"><i class="fa fa-cloud-upload"></i></a> 
+				<a id="showDialogCriarDiretorio" class="btn btn-icon" rel="leanModal" href="#modalCriarDiretorio"><i class="fa fa-folder"></i></a>
+			</div>
+		</div>
+
+	</header>
+
+	<div class="content">
+
+		<div class="app-header">
+
+		
+			<ol class="breadcrumb bg-none pull-left hide-xs">
+				
+				<li><a href="">Home</a></li>
+				
+				<!-- <s:iterator value="caminho" var="dir">
+				
+					<s:url var="urlVoltar" action="voltar">
+						<s:param name="diretorioAtual" value="dir"/>
+					</s:url> -->
+					
+					
+					<li><a href=""><!-- <s:property value="#dir" /> -->dir</a></li>
+					
+				<!-- </s:iterator> -->
+				
+				<!-- <li class="active">Pasta 2</li> -->
+				
+			</ol>
+
+			<h3 class="app-title pull-right">
+				<small>MB de 100MB usado</small>
+			</h3>
+		</div>
+
+		<!-- LISTAR DIRET�RIOS -->
+		<!-- <s:iterator value="diretorios" var="dir">
+		
+			<s:url var="urlDir" action="entrar">
+				<s:param name="diretorioAtual" value="#dir.getName()"/>
+			</s:url>
+			
+			<s:url var="urlDlt" action="deleteDiretorio">
+				<s:param name="diretorioDelete" value="#dir.getName()"/>
+			</s:url> -->
+			
+			<a class="icon-remover" href="">
+				<i class="fa fa-times "></i>
+			</a>
+			
+			<a href="">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<div class="todo-list">
+							<div class="todo-checker">
+								<i class="fa fa-folder"></i>
+							</div>
+							
+							<div class="label label-primary"><!-- <s:property value="getFormatedDate(#dir)" /> -->nomenoem</div>
+							<div class="todo-text">
+								<!-- <s:property value="#dir.getName()" /> -->nomeaq
+							</div>
+						</div>
+					</li>
+				</ul>
+			</a>
+		<!-- </s:iterator> -->
+		
+		
+		<!-- LISTAR ARQUIVOS -->
+		<!-- s:iterator value="arquivos" var="file">
+		
+			<s:url var="urlFileDownload" action="download">
+				<s:param name="filePath" value="#file.getName()"/>
+			</s:url>
+			
+			<s:url var="urlDlt" action="deleteFile">
+				<s:param name="fileDelete" value="#file.getName()"/>
+			</s:url> -->
+		
+			<a class="icon-remover" href="">
+				<i class="fa fa-times "></i>
+			</a>
+			
+			<a href="">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<div class="todo-list">
+							<div class="todo-checker">
+								<i class="fa fa-file-o"></i>
+							</div>
+							<div class="label label-primary"><!-- <s:property value="getFormatedDate(#file)" /> -->nomenome</div>
+							<div class="todo-text">
+								<!-- <s:property value="#file.getName()" /> -->nomearq
+							</div>
+						</div>
+					</li>
+				</ul>
+			</a>
+			
+		<!-- </s:iterator> -->
+		
+		
+	</div>
+
+
+	<div id="modalUpload"
+		style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+		<div id="signup-ct">
+			<form action="upload" method="post" enctype="multipart/form-data">
+				<!-- <s:file name="fileUpload" size="20" /><br><br><br><br>
+				<s:submit value="Enviar" /> -->
+
+			</form>
+		</div>
+	</div>
+	
+	<div id="modalCriarDiretorio"
+		style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+		<div id="signup-ct1">
+		    <h:form >
+		    	<h1>Nome do diret�rio</h1>
+		        <!-- <s:textfield name ="novoDiretorio" cssStyle="border: 1px solid #E5E5E5; " />
+		        <s:submit value="Criar" /> -->
+		    </h:form>
+		</div>
+	</div>
+
+	<div id="lean_overlay"></div>
+
+	<script type="text/javascript">
+		$("#showDialogUpload").leanModal();
+		$("#showDialogCriarDiretorio").leanModal();
+	</script>
+
+</h:body>
+</html>
