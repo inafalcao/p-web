@@ -1,9 +1,12 @@
 package br.com.trabalho02.bean;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.trabalho02.entidade.Arquivo;
 import br.com.trabalho02.entidade.Diretorio;
 import br.com.trabalho02.repository.DiretorioRepository;
@@ -14,7 +17,7 @@ import br.com.trabalho02.repository.Repository;
 @ViewScoped
 public class UploaderBean extends BaseControllerBean<Diretorio> {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1428374L;
 	
 	public Diretorio diretorio;
 	public DiretorioRepository repository;
@@ -33,12 +36,19 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			
 			diretorio = repository.obterPorCampo(Diretorio.class, "nome", "raiz");
 			
-			// Cria a raiz, se ela n�o existir
+			
+			// Cria a raiz, se ela nao existir
 			if(diretorio == null) {
 				diretorio = new Diretorio();
 				diretorio.setNome("raiz");
 				repository.save(diretorio);
 			}
+			
+			if(diretorio.getSubdiretorios() == null)
+				diretorio.setSubdiretorios(new ArrayList<Diretorio>());
+			if(diretorio.getArquivos() == null)
+				diretorio.setArquivos(new ArrayList<Arquivo>());
+			
 			
 			setEntity(new Diretorio());
 			
@@ -48,9 +58,14 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	}
 
 	public void adicionarDiretorio() throws Exception {
+		
+		novoDiretorio.setPai(new Diretorio());
+		
 		novoDiretorio.setPai(diretorio);
 		repository.save(novoDiretorio);
 		diretorio.getSubdiretorios().add(novoDiretorio);
+		
+		novoDiretorio = new Diretorio();
 	}
 	
 	public Diretorio getNovoDiretorio() {
@@ -82,6 +97,7 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 		return (List<Diretorio>) repository.obterPorCampo(Diretorio.class, "pai", diretorio);
 	}
 
+	
 	public void setDiretorio(Diretorio diretorio) {
 		this.diretorio = diretorio;
 	}

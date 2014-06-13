@@ -23,11 +23,11 @@ public class Diretorio extends Entidade {
 	@ManyToOne
 	private Diretorio pai;
 
-	public Diretorio() {
+	/*public Diretorio() {
 		subdiretorios = new ArrayList<Diretorio>();
 		arquivos = new ArrayList<Arquivo>();
 		pai = new Diretorio();
-	}
+	}*/
 
 	public String getNome() {
 		return nome;
@@ -41,7 +41,7 @@ public class Diretorio extends Entidade {
 		return this.subdiretorios;
 	}
 
-	public void setSubdiretorios(List<Diretorio> subdiretorios) {
+	public void setSubdiretorios(ArrayList<Diretorio> subdiretorios) {
 		this.subdiretorios = subdiretorios;
 	}
 
@@ -49,7 +49,7 @@ public class Diretorio extends Entidade {
 		return this.arquivos;
 	}
 
-	public void setArquivos(List<Arquivo> arquivos) {
+	public void setArquivos(ArrayList<Arquivo> arquivos) {
 		this.arquivos = arquivos;
 	}
 

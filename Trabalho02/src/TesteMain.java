@@ -1,4 +1,7 @@
+import br.com.trabalho02.entidade.Diretorio;
 import br.com.trabalho02.entidade.Usuario;
+import br.com.trabalho02.repository.DiretorioRepository;
+import br.com.trabalho02.repository.DiretorioRepositoryImpl;
 import br.com.trabalho02.repository.UsuarioRepository;
 import br.com.trabalho02.repository.UsuarioRepositoryImpl;
 
@@ -22,6 +25,15 @@ public class TesteMain {
 			System.out.println("Usuario2Login: "+ usuario2.getLogin());
 			System.out.println("Usuario2Senha: "+ usuario2.getSenha());
 			System.out.println("Usuario2Nome: "+ usuario2.getNome());
+			
+			
+			
+			
+			Diretorio dir = new Diretorio();
+			dir.setNome("teste");
+			
+			DiretorioRepository repos = new DiretorioRepositoryImpl();
+			repos.save(dir);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

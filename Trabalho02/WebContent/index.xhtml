@@ -8,12 +8,15 @@
 <h:head>
 
 	<title>Uploader</title>
-	
+
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
+
 	<link href="style.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript"	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<link
+		href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
+		rel="stylesheet" />
 	<script type="text/javascript" src="jquery.leanModal.min.js"></script>
 
 </h:head>
@@ -21,26 +24,28 @@
 <h:body>
 
 	<header class="content-header">
-		<div class="header-information pull-left">
-			
-			<!-- <s:url var="urlVoltarBotao" action="voltar-botao">
-			</s:url> -->
-			<a href="" class="btn btn-icon pull-left">
-				<i class="fa fa-arrow-circle-left"></i>
-			</a>
-			
-			<h1 class="content-title pull-right">
-				<!-- <s:property value="diretorioAtual" /> -->
-				dir atual
-			</h1>
-		</div>
+	<div class="header-information pull-left">
 
-		<div class="header-actions pull-right">
-			<div class="btn-group">
-				<a id="showDialogUpload" rel="leanModal" href="#modalUpload" class="btn btn-icon"><i class="fa fa-cloud-upload"></i></a> 
-				<a id="showDialogCriarDiretorio" class="btn btn-icon" rel="leanModal" href="#modalCriarDiretorio"><i class="fa fa-folder"></i></a>
-			</div>
+		<!-- <s:url var="urlVoltarBotao" action="voltar-botao">
+			</s:url> -->
+		<a href="" class="btn btn-icon pull-left"> <i
+			class="fa fa-arrow-circle-left"></i>
+		</a>
+
+		<h1 class="content-title pull-right">
+			<!-- <s:property value="diretorioAtual" /> -->
+			dir atual
+		</h1>
+	</div>
+
+	<div class="header-actions pull-right">
+		<div class="btn-group">
+			<a id="showDialogUpload" rel="leanModal" href="#modalUpload"
+				class="btn btn-icon"><i class="fa fa-cloud-upload"></i></a> <a
+				id="showDialogCriarDiretorio" class="btn btn-icon" rel="leanModal"
+				href="#modalCriarDiretorio"><i class="fa fa-folder"></i></a>
 		</div>
+	</div>
 
 	</header>
 
@@ -48,24 +53,26 @@
 
 		<div class="app-header">
 
-		
+
 			<ol class="breadcrumb bg-none pull-left hide-xs">
-				
+
 				<li><a href="">Home</a></li>
-				
+
 				<!-- <s:iterator value="caminho" var="dir">
 				
 					<s:url var="urlVoltar" action="voltar">
 						<s:param name="diretorioAtual" value="dir"/>
 					</s:url> -->
-					
-					
-					<li><a href=""><!-- <s:property value="#dir" /> -->dir</a></li>
-					
+
+
+				<li><a href="">
+						<!-- <s:property value="#dir" /> -->dir
+				</a></li>
+
 				<!-- </s:iterator> -->
-				
+
 				<!-- <li class="active">Pasta 2</li> -->
-				
+
 			</ol>
 
 			<h3 class="app-title pull-right">
@@ -73,74 +80,64 @@
 			</h3>
 		</div>
 
-		<!-- LISTAR DIRET�RIOS -->
-		<!-- <s:iterator value="diretorios" var="dir">
+		<!-- LISTAR DIRET�RIOS -->		
+		<h:dataTable value="#{uploaderBean.diretorio.subdiretorios}" var="dir" style="width: 100%;">
 		
-			<s:url var="urlDir" action="entrar">
-				<s:param name="diretorioAtual" value="#dir.getName()"/>
-			</s:url>
-			
-			<s:url var="urlDlt" action="deleteDiretorio">
-				<s:param name="diretorioDelete" value="#dir.getName()"/>
-			</s:url> -->
-			
-			<a class="icon-remover" href="">
-				<i class="fa fa-times "></i>
-			</a>
-			
-			<a href="">
-				<ul class="list-group">
-					<li class="list-group-item">
-						<div class="todo-list">
-							<div class="todo-checker">
-								<i class="fa fa-folder"></i>
-							</div>
-							
-							<div class="label label-primary"><!-- <s:property value="getFormatedDate(#dir)" /> -->nomenoem</div>
-							<div class="todo-text">
-								<!-- <s:property value="#dir.getName()" /> -->nomeaq
-							</div>
+		<h:column>
+		<a class="icon-remover" href=""> <i class="fa fa-times "></i>
+		</a> <a href="">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<div class="todo-list">
+						<div class="todo-checker">
+							<i class="fa fa-folder"></i>
 						</div>
-					</li>
-				</ul>
-			</a>
-		<!-- </s:iterator> -->
-		
+
+						<div class="label label-primary">
+							<!-- <s:property value="getFormatedDate(#dir)" /> -->
+							data
+						</div>
+						<div class="todo-text">
+							<!-- <s:property value="#dir.getName()" /> -->
+							#{dir.nome}
+						</div>
+					</div>
+				</li>
+			</ul>
+		</a>
+		</h:column>
+		</h:dataTable>
 		
 		<!-- LISTAR ARQUIVOS -->
-		<!-- s:iterator value="arquivos" var="file">
+		<h:dataTable value="#{uploaderBean.diretorio.arquivos}" var="arq" style="width: 100%;">
 		
-			<s:url var="urlFileDownload" action="download">
-				<s:param name="filePath" value="#file.getName()"/>
-			</s:url>
-			
-			<s:url var="urlDlt" action="deleteFile">
-				<s:param name="fileDelete" value="#file.getName()"/>
-			</s:url> -->
-		
-			<a class="icon-remover" href="">
-				<i class="fa fa-times "></i>
-			</a>
-			
-			<a href="">
-				<ul class="list-group">
-					<li class="list-group-item">
-						<div class="todo-list">
-							<div class="todo-checker">
-								<i class="fa fa-file-o"></i>
-							</div>
-							<div class="label label-primary"><!-- <s:property value="getFormatedDate(#file)" /> -->nomenome</div>
-							<div class="todo-text">
-								<!-- <s:property value="#file.getName()" /> -->nomearq
-							</div>
+		<h:column>
+
+		<a class="icon-remover" href=""> <i class="fa fa-times "></i>
+		</a> <a href="">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<div class="todo-list">
+						<div class="todo-checker">
+							<i class="fa fa-file-o"></i>
 						</div>
-					</li>
-				</ul>
-			</a>
-			
+						<div class="label label-primary">
+							nomenome
+						</div>
+						<div class="todo-text">
+							#{arq.nome}
+						</div>
+					</div>
+				</li>
+			</ul>
+		</a>
+		
+		</h:column>
+		</h:dataTable>
+		
 		<!-- </s:iterator> -->
-		
-		
+
+
 	</div>
 
 
@@ -154,20 +151,20 @@
 			</form>
 		</div>
 	</div>
-	
+
 	<div id="modalCriarDiretorio"
 		style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
 		<div id="signup-ct1">
-		    <h:form >
-		    	<h1>Nome do diretório</h1>
-		    	<!-- <h:inputText  value="#{uploaderBean.novoDiretorio.nome}" />
+			<h:form>
+				<h1>Nome do diretório</h1>
+				<h:inputText  value="#{uploaderBean.novoDiretorio.nome}" />
 		    	
 		    	<h:commandButton style="margin-top: 20px;" value="Adicionar"
-					type="submit" action="#{uploaderBean.adicionarDiretorio}" /> -->
-		    	
-		        <!-- <s:textfield name ="novoDiretorio" cssStyle="border: 1px solid #E5E5E5; " />
+					type="submit" action="#{uploaderBean.adicionarDiretorio}" />
+
+				<!-- <s:textfield name ="novoDiretorio" cssStyle="border: 1px solid #E5E5E5; " />
 		        <s:submit value="Criar" /> -->
-		    </h:form>
+			</h:form>
 		</div>
 	</div>
 
