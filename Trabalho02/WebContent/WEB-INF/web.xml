@@ -14,28 +14,42 @@
  
   <!-- Welcome page list -->
   <welcome-file-list>
-    <welcome-file>paginas/inicio/login.xhtml</welcome-file>
+    <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>
  
-  <!-- JavaServer Faces Servlet -->
+ <!-- JavaServer Faces Servlet -->
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
- 
+  
   <!-- Servlet Mapping to URL pattern -->
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.faces</url-pattern>
   </servlet-mapping>
+  
+  <!-- Struts2 Filter -->
+  <filter>
+      <filter-name>Struts2</filter-name>
+      <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>Struts2</filter-name>
+      <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>Struts2</filter-name>
+      <url-pattern>*.action</url-pattern>
+  </filter-mapping>
  
 </web-app>
