@@ -22,7 +22,7 @@
 </h:head>
 
 <h:body>
-
+	<h:form>
 	<header class="content-header">
 	<div class="header-information pull-left">
 
@@ -84,7 +84,12 @@
 		<h:dataTable value="#{uploaderBean.diretorio.subdiretorios}" var="dir" style="width: 100%;">
 		
 		<h:column>
-		<a class="icon-remover" href=""> <i class="fa fa-times "></i>
+		
+		<h:commandLink styleClass="fa fa-times icon-remover" 
+			action="#{uploaderBean.removerDiretorio(dir)}">
+			
+		 </h:commandLink>
+		<a class="icon-remover" href="">
 		</a> <a href="">
 			<ul class="list-group">
 				<li class="list-group-item">
@@ -104,7 +109,7 @@
 					</div>
 				</li>
 			</ul>
-		</a>
+			</a>
 		</h:column>
 		</h:dataTable>
 		
@@ -139,7 +144,7 @@
 
 
 	</div>
-
+</h:form>
 
 	<div id="modalUpload"
 		style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
@@ -174,6 +179,5 @@
 		$("#showDialogUpload").leanModal();
 		$("#showDialogCriarDiretorio").leanModal();
 	</script>
-
 </h:body>
 </html>
