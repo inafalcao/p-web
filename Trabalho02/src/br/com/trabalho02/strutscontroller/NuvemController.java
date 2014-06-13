@@ -7,7 +7,7 @@ import br.com.trabalho02.repository.UsuarioRepositoryImpl;
 import com.opensymphony.xwork2.ActionSupport;
 
 
-public class NuvemController extends ActionSupport{
+public class NuvemController extends ActionSupport {
     
 	private static final long serialVersionUID = 1L;
 	

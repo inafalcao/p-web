@@ -1,5 +1,6 @@
 package br.com.trabalho02.entidade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,8 +23,10 @@ public class Diretorio extends Entidade {
 	@ManyToOne
 	private Diretorio pai;
 
-	Diretorio() {
-
+	public Diretorio() {
+		subdiretorios = new ArrayList<Diretorio>();
+		arquivos = new ArrayList<Arquivo>();
+		pai = new Diretorio();
 	}
 
 	public String getNome() {
