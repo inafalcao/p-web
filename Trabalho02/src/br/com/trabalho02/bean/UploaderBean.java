@@ -9,6 +9,8 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.trabalho02.entidade.Arquivo;
 import br.com.trabalho02.entidade.Diretorio;
+import br.com.trabalho02.repository.ArquivoRepository;
+import br.com.trabalho02.repository.ArquivoRepositoryImpl;
 import br.com.trabalho02.repository.DiretorioRepository;
 import br.com.trabalho02.repository.DiretorioRepositoryImpl;
 import br.com.trabalho02.repository.Repository;
@@ -22,14 +24,18 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	public Diretorio diretorio;
 	public DiretorioRepository repository;
 	
+	public ArquivoRepository arquivoRepository;
+	
 	public Diretorio novoDiretorio;
 	public Arquivo novoArquivo;
 	
+	private Diretorio deleteDiretorio;
 	
 	@PostConstruct
 	public void inicializar() {
 		try {
 			repository = new DiretorioRepositoryImpl();
+			arquivoRepository = new ArquivoRepositoryImpl();
 			
 			novoDiretorio = new Diretorio();
 			novoArquivo = new Arquivo();
@@ -56,6 +62,28 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			e.printStackTrace();
 		}
 	}
+	
+	public void removerDiretorio(Diretorio diretorio)
+	{
+		try {
+			System.out.println("remover!");
+			this.diretorio.getSubdiretorios().remove(diretorio);
+			repository.save(this.diretorio);
+			repository.remove(diretorio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void removerArquivo(Arquivo arquivo)
+	{
+		try {
+			System.out.println("remover!");
+			arquivoRepository.remove(arquivo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void adicionarDiretorio() throws Exception {
 		
@@ -66,6 +94,18 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 		diretorio.getSubdiretorios().add(novoDiretorio);
 		
 		novoDiretorio = new Diretorio();
+	}
+	
+	public void adicionarArquivo() throws Exception {
+	
+		novoArquivo.setDiretorio(diretorio);
+		
+		arquivoRepository.save(novoArquivo);
+		diretorio.getArquivos().add(novoArquivo);
+		repository.save(diretorio);
+		
+		novoArquivo = new Arquivo();
+	
 	}
 	
 	public Diretorio getNovoDiretorio() {
@@ -97,6 +137,9 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 		return (List<Diretorio>) repository.obterPorCampo(Diretorio.class, "pai", diretorio);
 	}
 
+	public List<Arquivo> getArquivos() {
+		return (List<Arquivo>) repository.obterPorCampo(Arquivo.class, "pai", diretorio);
+	}
 	
 	public void setDiretorio(Diretorio diretorio) {
 		this.diretorio = diretorio;
@@ -107,4 +150,11 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 		return this.repository;
 	}
 
+	public Diretorio getDeleteDiretorio() {
+		return deleteDiretorio;
+	}
+
+	public void setDeleteDiretorio(Diretorio deleteDiretorio) {
+		this.deleteDiretorio = deleteDiretorio;
+	}
 }

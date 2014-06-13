@@ -39,4 +39,13 @@ public class Arquivo extends Entidade {
 		this.conteudo = conteudo;
 	}
 
+	public Diretorio getDiretorio() {
+		return diretorio;
+	}
+
+	public void setDiretorio(Diretorio diretorio) {
+		this.diretorio = diretorio;
+	}
+
+	
 }
