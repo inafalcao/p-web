@@ -12,6 +12,7 @@
                 <tr><td>Login: <s:textfield name="login"/></tr></td>
                 <tr><td>Senha: <s:password name="senha"/></tr></td>
                 <tr><td><s:submit value="Log in!"/></tr></td>
+                <tr><td><a href="cadastro.xhtml">cadastrar</a></tr></td>
             </table>
         </s:form>
 </body>

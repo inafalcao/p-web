@@ -1,15 +1,11 @@
 package br.com.trabalho02.bean;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import br.com.trabalho02.entidade.Arquivo;
 import br.com.trabalho02.entidade.Diretorio;
-import br.com.trabalho02.entidade.Usuario;
 import br.com.trabalho02.repository.DiretorioRepository;
 import br.com.trabalho02.repository.DiretorioRepositoryImpl;
 import br.com.trabalho02.repository.Repository;

@@ -35,6 +35,7 @@ private static final long serialVersionUID = 1L;
 			addMessageWarn("Já existe uma usuario cadastrada com esse login.");
 			return;
 		}
+		getEntity().setTamanhoCota(100);
 		super.save();
 		usuario = new Usuario();
 	}
