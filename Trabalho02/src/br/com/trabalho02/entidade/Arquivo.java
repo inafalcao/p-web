@@ -19,7 +19,7 @@ public class Arquivo extends Entidade {
 	@JoinColumn(name="DIRETORIO_ID")
 	private Diretorio diretorio;
 
-	Arquivo() {
+	public Arquivo() {
 
 	}
 
