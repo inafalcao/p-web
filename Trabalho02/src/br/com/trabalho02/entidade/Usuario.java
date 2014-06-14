@@ -1,8 +1,10 @@
 package br.com.trabalho02.entidade;
 
+import java.util.List;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario extends Entidade {
@@ -13,10 +15,34 @@ public class Usuario extends Entidade {
 	private String login;
 	private String senha;
 	private double tamanhoCota;
+
+	@OneToOne(mappedBy = "dono")
+	private Diretorio raiz;
 	
+	@OneToMany()
+	private List<Diretorio> shared;
+	
+	public Diretorio getRaiz() {
+		return raiz;
+	}
+
+	public void setRaiz(Diretorio raiz) {
+		this.raiz = raiz;
+	}
+
 	public String getNome() {
 		return nome;
 	}
+	
+	public List<Diretorio> getShared() {
+		return shared;
+	}
+
+	public void setShared(List<Diretorio> shared) {
+		this.shared = shared;
+	}
+
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

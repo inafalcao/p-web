@@ -14,7 +14,7 @@ public class Arquivo extends Entidade {
 
 	private byte[] conteudo;
 
-	/* Diretório ao qual o arquivo pertence */
+	/* Diretorio ao qual o arquivo pertence */
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="DIRETORIO_ID")
 	private Diretorio diretorio;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -19,6 +21,10 @@ public class Diretorio extends Entidade {
 
 	@OneToMany(mappedBy = "diretorio")
 	private List<Arquivo> arquivos;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="USUARIO_ID")
+	private Usuario dono;
 
 	@ManyToOne
 	private Diretorio pai;
@@ -47,6 +53,22 @@ public class Diretorio extends Entidade {
 
 	public List<Arquivo> getArquivos() {
 		return this.arquivos;
+	}
+	
+	public Usuario getDono() {
+		return dono;
+	}
+
+	public void setDono(Usuario dono) {
+		this.dono = dono;
+	}
+
+	public void setSubdiretorios(List<Diretorio> subdiretorios) {
+		this.subdiretorios = subdiretorios;
+	}
+
+	public void setArquivos(List<Arquivo> arquivos) {
+		this.arquivos = arquivos;
 	}
 
 	public void setArquivos(ArrayList<Arquivo> arquivos) {

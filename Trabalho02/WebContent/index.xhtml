@@ -76,7 +76,7 @@
 			</ol>
 
 			<h3 class="app-title pull-right">
-				<small>MB de 100MB usado</small>
+				<small><h:outputText value="#{uploaderBean.usuario.tamanhoCota}" /> MB restantes</small>
 			</h3>
 		</div>
 
@@ -97,13 +97,16 @@
 						<div class="todo-checker">
 							<i class="fa fa-folder"></i>
 						</div>
-
+						
 						<div class="label label-primary">
-							<!-- <s:property value="getFormatedDate(#dir)" /> -->
-							data
+							<h:commandLink rel="leanModal" styleClass="fa fa-share-alt"
+								href="#modalCompartilhar"
+								action="#{uploaderBean.setDiretorioShare(dir)}"
+								id="showDialogCompartilhar" value="compartilhar">
+							</h:commandLink>
 						</div>
+
 						<div class="todo-text">
-							<!-- <s:property value="#dir.getName()" /> -->
 							#{dir.nome}
 						</div>
 					</div>
@@ -162,10 +165,26 @@
 		<div id="signup-ct1">
 			<h:form>
 				<h1>Nome do diretório</h1>
-				<h:inputText  value="#{uploaderBean.novoDiretorio.nome}" />
+				<h:inputText styleClass="simple-input" value="#{uploaderBean.novoDiretorio.nome}" />
 		    	
 		    	<h:commandButton style="margin-top: 20px;" value="Adicionar"
 					type="submit" action="#{uploaderBean.adicionarDiretorio}" />
+
+				<!-- <s:textfield name ="novoDiretorio" cssStyle="border: 1px solid #E5E5E5; " />
+		        <s:submit value="Criar" /> -->
+			</h:form>
+		</div>
+	</div>
+
+	<div id="modalCompartilhar"
+		style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+		<div id="signup-ct1">
+			<h:form>
+				<h1>Nome de login do usuário com quem você deseja compartilhar</h1>
+				<h:inputText styleClass="simple-input" value="#{uploaderBean.usuarioShare}" />
+		    	
+		    	<h:commandButton style="margin-top: 20px;" value="Adicionar"
+					type="submit" action="#{uploaderBean.compartilhar}" />
 
 				<!-- <s:textfield name ="novoDiretorio" cssStyle="border: 1px solid #E5E5E5; " />
 		        <s:submit value="Criar" /> -->
@@ -178,6 +197,8 @@
 	<script type="text/javascript">
 		$("#showDialogUpload").leanModal();
 		$("#showDialogCriarDiretorio").leanModal();
+		$("#showDialogCompartilhar").leanModal();
+		
 	</script>
 </h:body>
 </html>

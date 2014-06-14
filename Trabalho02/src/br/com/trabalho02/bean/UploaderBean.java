@@ -2,24 +2,35 @@ package br.com.trabalho02.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.trabalho02.entidade.Arquivo;
 import br.com.trabalho02.entidade.Diretorio;
+import br.com.trabalho02.entidade.Usuario;
 import br.com.trabalho02.repository.ArquivoRepository;
 import br.com.trabalho02.repository.ArquivoRepositoryImpl;
 import br.com.trabalho02.repository.DiretorioRepository;
 import br.com.trabalho02.repository.DiretorioRepositoryImpl;
 import br.com.trabalho02.repository.Repository;
+import br.com.trabalho02.repository.UsuarioRepository;
+import br.com.trabalho02.repository.UsuarioRepositoryImpl;
 
 @ManagedBean(name = "uploaderBean")
 @ViewScoped
 public class UploaderBean extends BaseControllerBean<Diretorio> {
 	
 	private static final long serialVersionUID = 1428374L;
+	
+	public String usuarioShare;
+	public Diretorio diretorioShare;
+	
+	public Usuario usuario;
+	public UsuarioRepository usuarioRepository;
 	
 	public Diretorio diretorio;
 	public DiretorioRepository repository;
@@ -34,21 +45,34 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	@PostConstruct
 	public void inicializar() {
 		try {
+			
+			Map session = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+			usuario = (Usuario) session.get("usuario");
+			
 			repository = new DiretorioRepositoryImpl();
 			arquivoRepository = new ArquivoRepositoryImpl();
+			usuarioRepository = new UsuarioRepositoryImpl();
 			
+			diretorioShare = new Diretorio();
 			novoDiretorio = new Diretorio();
 			novoArquivo = new Arquivo();
 			
-			diretorio = repository.obterPorCampo(Diretorio.class, "nome", "raiz");
+			// TEMPORÁRIO
+			//diretorio = repository.obterPorCampo(Diretorio.class, "nome", "raiz");
 			
-			
-			// Cria a raiz, se ela nao existir
-			if(diretorio == null) {
+			// USAR ESSA VERSÃO QUANDO RECUPERAR USUÁRIO DA SESSÃO
+			if(usuario!=null && usuario.getRaiz() != null) {
+				diretorio = usuario.getRaiz();
+			} else {
 				diretorio = new Diretorio();
 				diretorio.setNome("raiz");
+				diretorio.setDono(usuario);
 				repository.save(diretorio);
+				
+				usuario.setRaiz(diretorio);
+				usuarioRepository.save(usuario);
 			}
+			
 			
 			if(diretorio.getSubdiretorios() == null)
 				diretorio.setSubdiretorios(new ArrayList<Diretorio>());
@@ -87,6 +111,8 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 
 	public void adicionarDiretorio() throws Exception {
 		
+		// TODO: setar usuário no diretório
+		
 		novoDiretorio.setPai(new Diretorio());
 		
 		novoDiretorio.setPai(diretorio);
@@ -108,6 +134,16 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	
 	}
 	
+	
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public Diretorio getNovoDiretorio() {
 		return novoDiretorio;
 	}
@@ -157,4 +193,34 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	public void setDeleteDiretorio(Diretorio deleteDiretorio) {
 		this.deleteDiretorio = deleteDiretorio;
 	}
+
+	public String getUsuarioShare() {
+		return usuarioShare;
+	}
+
+	public void setUsuarioShare(String usuarioShare) {
+		this.usuarioShare = usuarioShare;
+	}
+	
+	public void compartilhar() throws Exception {
+		Usuario usuario = usuarioRepository.obterPorCampo(Usuario.class, "login", usuarioShare);
+		
+		if(usuario != null) {
+			if(usuario.getShared()==null)
+				usuario.setShared(new ArrayList<Diretorio>());
+			usuario.getShared().add(diretorioShare);
+			// Atualiza usuário
+			usuarioRepository.save(usuario);
+		}
+	}
+
+	public Diretorio getDiretorioShare() {
+		return diretorioShare;
+	}
+
+	public void setDiretorioShare(Diretorio diretorioShare) {
+		this.diretorioShare = diretorioShare;
+	}
+	
+	
 }
