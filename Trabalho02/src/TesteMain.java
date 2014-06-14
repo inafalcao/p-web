@@ -1,3 +1,8 @@
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Expression;
+
 import br.com.trabalho02.entidade.Diretorio;
 import br.com.trabalho02.entidade.Usuario;
 import br.com.trabalho02.repository.DiretorioRepository;
@@ -29,6 +34,11 @@ public class TesteMain {
 			
 			DiretorioRepository repos = new DiretorioRepositoryImpl();
 			repos.save(dir);
+			
+			Diretorio teste = repos.findBy((long) 1);
+			
+			Diretorio teste2  = (Diretorio) repos.obterPor(Diretorio.class, "pai.id", 1);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

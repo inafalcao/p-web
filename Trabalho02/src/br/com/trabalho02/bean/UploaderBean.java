@@ -62,7 +62,10 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			
 			// USAR ESSA VERSÃO QUANDO RECUPERAR USUÁRIO DA SESSÃO
 			if(usuario!=null && usuario.getRaiz() != null) {
-				diretorio = usuario.getRaiz();
+				//diretorio = repository.findBy(usuario.getRaiz().getId());
+				
+				// está dando erro aqui
+				diretorio.setSubdiretorios(repository.obterPor(Diretorio.class, "pai.id", usuario.getRaiz().getId()));
 			} else {
 				diretorio = new Diretorio();
 				diretorio.setNome("raiz");
@@ -94,6 +97,7 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			this.diretorio.getSubdiretorios().remove(diretorio);
 			repository.save(this.diretorio);
 			repository.remove(diretorio);
+			repository.getSession().getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -110,15 +114,10 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	}
 
 	public void adicionarDiretorio() throws Exception {
-		
-		// TODO: setar usuário no diretório
-		
-		novoDiretorio.setPai(new Diretorio());
-		
 		novoDiretorio.setPai(diretorio);
 		repository.save(novoDiretorio);
 		diretorio.getSubdiretorios().add(novoDiretorio);
-		
+		repository.save(diretorio);
 		novoDiretorio = new Diretorio();
 	}
 	

@@ -48,13 +48,7 @@ public class RepositoryImpl<E extends Entidade> implements Repository<E> {
 
     @Override
     public E findBy(Long id) {
-    	Criteria criteria = session.createCriteria(getPersistentClass()); criteria.add( Expression.like("id", id) );
-		List<E> result = (List<E>) criteria.list();
-		
-		if(result.size() != 0) {
-			return (E) result.get(0);
-		}
-		return null;
+		return (E) session.get(getPersistentClass(), new Long(id));
     }
 
     @SuppressWarnings("unchecked")
@@ -95,7 +89,8 @@ public class RepositoryImpl<E extends Entidade> implements Repository<E> {
 	
 	@Override
 	public List<E> obterPor(Class cls, Serializable campo, Serializable valor){
-		Criteria criteria = session.createCriteria(getPersistentClass()); criteria.add( Expression.like((String) campo, valor) );
+		Criteria criteria = session.createCriteria(getPersistentClass());
+		criteria.add( Expression.like((String) campo, valor) );
 		List<E> result = (List<E>) criteria.list();
 		return  result;
 	}
