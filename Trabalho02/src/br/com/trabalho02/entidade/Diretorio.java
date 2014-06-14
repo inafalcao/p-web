@@ -3,6 +3,7 @@ package br.com.trabalho02.entidade;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -14,9 +15,10 @@ public class Diretorio extends Entidade {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "nome")
 	private String nome;
 
-	@OneToMany
+	@OneToMany()
 	private List<Diretorio> subdiretorios;
 
 	@OneToMany(mappedBy = "diretorio")
@@ -28,12 +30,6 @@ public class Diretorio extends Entidade {
 
 	@ManyToOne
 	private Diretorio pai;
-
-	/*public Diretorio() {
-		subdiretorios = new ArrayList<Diretorio>();
-		arquivos = new ArrayList<Arquivo>();
-		pai = new Diretorio();
-	}*/
 
 	public String getNome() {
 		return nome;

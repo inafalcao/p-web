@@ -99,11 +99,19 @@
 						</div>
 						
 						<div class="label label-primary">
-							<h:commandLink rel="leanModal" styleClass="fa fa-share-alt"
-								href="#modalCompartilhar"
-								action="#{uploaderBean.setDiretorioShare(dir)}"
-								id="showDialogCompartilhar" value="compartilhar">
-							</h:commandLink>
+						
+							<a id="showDialogCompartilhar" rel="leanModal" href="#modalCompartilhar">
+								<!-- <i class="fa fa-share-alt"></i> --> Compartilhar
+								<h:commandLink  id="showDialogCompartilhar2" rel="leanModal" href="#modalCompartilhar" styleClass="fa fa-share-alt btn btn-icon"
+									action="#{uploaderBean.setDiretorioShare(dir)}">
+							</h:commandLink> 
+							</a>
+					
+							<!-- <h:commandLink  id="showDialogCompartilhar2" rel="leanModal" href="#modalCompartilhar" styleClass="fa fa-share-alt btn btn-icon"
+									action="#{uploaderBean.setDiretorioShare(dir)}">
+							</h:commandLink> -->
+						
+				
 						</div>
 
 						<div class="todo-text">
@@ -177,8 +185,8 @@
 	</div>
 
 	<div id="modalCompartilhar"
-		style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-		<div id="signup-ct1">
+		style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px; background-color: white; padding: 50px;" >
+		<div id="signup-ct2">
 			<h:form>
 				<h1>Nome de login do usuário com quem você deseja compartilhar</h1>
 				<h:inputText styleClass="simple-input" value="#{uploaderBean.usuarioShare}" />
@@ -195,6 +203,13 @@
 	<div id="lean_overlay"></div>
 
 	<script type="text/javascript">
+	
+		/* $( document ).ready(function() {
+			$("#j_idt6:j_idt10:0:showDialogCompartilhar").attr("href", "#modalCompartilhar");
+			console.log("teste");
+		}); */
+	
+	
 		$("#showDialogUpload").leanModal();
 		$("#showDialogCriarDiretorio").leanModal();
 		$("#showDialogCompartilhar").leanModal();

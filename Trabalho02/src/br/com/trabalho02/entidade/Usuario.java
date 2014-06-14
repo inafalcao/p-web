@@ -2,6 +2,7 @@ package br.com.trabalho02.entidade;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -11,7 +12,6 @@ public class Usuario extends Entidade {
 
 	private static final long serialVersionUID = 1L;
 
-	private String nome;
 	private String login;
 	private String senha;
 	private double tamanhoCota;
@@ -30,21 +30,12 @@ public class Usuario extends Entidade {
 		this.raiz = raiz;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-	
 	public List<Diretorio> getShared() {
 		return shared;
 	}
 
 	public void setShared(List<Diretorio> shared) {
 		this.shared = shared;
-	}
-
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 	public String getLogin() {
 		return login;

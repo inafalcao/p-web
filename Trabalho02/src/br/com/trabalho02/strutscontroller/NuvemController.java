@@ -2,6 +2,8 @@ package br.com.trabalho02.strutscontroller;
 
 import java.util.Map;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.struts2.interceptor.SessionAware;
 
 import br.com.trabalho02.entidade.Usuario;
@@ -27,20 +29,27 @@ public class NuvemController extends ActionSupport implements SessionAware {
     {
     	repository = new UsuarioRepositoryImpl();
     	usuario = repository.obterPorCampo(Usuario.class, "login", login);
-        if(usuario.getSenha().equals(senha))
-        {
-            setUsuario(usuario);
-            
-            // Coloca usuário na sessão
-            session = ActionContext.getContext().getSession();
-            session.put("usuario", usuario);
-            
-            return "success";
-        }
-        else
-        {
-            return "fail";
-        }
+        
+    	// Se existe um usuário com este login
+		if(usuario != null){
+			// Se existe um usuário com esta senha
+			if(usuario.getSenha().equals(senha)) {
+				// Autenticação bem sucedida. 
+				// 1. Usuário é redirecionado para a index.
+				// 2. Usuário é 'guardado' na sessão.
+				setUsuario(usuario);
+	            // Coloca usuário na sessão
+	            session = ActionContext.getContext().getSession();
+	            session.put("usuario", usuario);
+				
+				return "success";
+			} else {
+				return "fail";
+			}
+		} else {
+			return "fail";
+		}
+    	
     }
 
     
