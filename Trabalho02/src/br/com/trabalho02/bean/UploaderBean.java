@@ -243,9 +243,21 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			if(usuario.getShared()==null)
 				usuario.setShared(new ArrayList<Diretorio>());
 			usuario.getShared().add(diretorioShare);
+			
+			repository.save(diretorioShare);
 			// Atualiza usuário
 			usuarioRepository.save(usuario);
+			
+			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	   		ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
 		}
+	}
+	
+	public void redirectCompartilhar(Diretorio diretorio) throws IOException
+	{
+		diretorioShare = diretorio;
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+   		ec.redirect(ec.getRequestContextPath() + "/compartilhar.xhtml");
 	}
 
 	public Diretorio getDiretorioShare() {

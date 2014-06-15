@@ -128,12 +128,9 @@
 						
 						<div class="label label-primary">
 						
-							<a id="showDialogCompartilhar" rel="leanModal" href="#modalCompartilhar">
-								<!-- <i class="fa fa-share-alt"></i> --> Compartilhar
-								<h:commandLink  id="showDialogCompartilhar2" rel="leanModal" href="#modalCompartilhar" styleClass="fa fa-share-alt btn btn-icon"
-									action="#{uploaderBean.setDiretorioShare(dir)}">
-								</h:commandLink> 
-							</a>
+							
+							<h:commandLink  id="showDialogCompartilhar2" styleClass="fa fa-share-alt btn btn-icon"
+								action="#{uploaderBean.redirectCompartilhar(dir)}" value="Compartilhar"/>
 					
 						</div>
 
