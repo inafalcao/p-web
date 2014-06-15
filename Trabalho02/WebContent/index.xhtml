@@ -4,7 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
+	
 <h:head>
 
 	<title>Uploader</title>
@@ -22,7 +24,7 @@
 </h:head>
 
 <h:body>
-	<h:form>
+	<h:form enctype="multipart/form-data">
 	<header class="content-header">
 	<div class="header-information pull-left">
 
@@ -115,7 +117,7 @@
 						</div>
 
 						<div class="todo-text">
-							#{dir.nome}
+							#{dir.nome} 
 						</div>
 					</div>
 				</li>
@@ -157,14 +159,18 @@
 	</div>
 </h:form>
 
+
 	<div id="modalUpload"
 		style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-		<div id="signup-ct">
-			<form action="upload" method="post" enctype="multipart/form-data">
-				<!-- <s:file name="fileUpload" size="20" /><br><br><br><br>
-				<s:submit value="Enviar" /> -->
+		<div id="signup-ct4">
+			<h:form enctype="multipart/form-data">
+				<h1>Nome do diretório</h1>
+				
+				<p:fileUpload value="#{uploaderBean.file}" mode="simple"  />
+		    	<h:commandButton style="margin-top: 20px;" value="Adicionar"
+					type="submit" actionListener="#{uploaderBean.carregarArquivo()}" />
 
-			</form>
+			</h:form>
 		</div>
 	</div>
 
@@ -199,12 +205,6 @@
 	<div id="lean_overlay"></div>
 
 	<script type="text/javascript">
-	
-		/* $( document ).ready(function() {
-			$("#j_idt6:j_idt10:0:showDialogCompartilhar").attr("href", "#modalCompartilhar");
-			console.log("teste");
-		}); */
-	
 	
 		$("#showDialogUpload").leanModal();
 		$("#showDialogCriarDiretorio").leanModal();

@@ -38,6 +38,44 @@
     <url-pattern>*.faces</url-pattern>
   </servlet-mapping>
   
+	<!-- <filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+  
+  <filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+		<init-param>
+			<param-name>uploadDirectory</param-name>
+			<param-value>/usr/local/temp</param-value> 
+			
+			 <param-value>C:/temp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>thresholdSize</param-name>
+			<param-value>10000</param-value>
+		</init-param>
+	</filter> -->
+  
+  
+  
+   <context-param>
+    <param-name>primefaces.UPLOADER</param-name>
+    <param-value>commons</param-value>
+  </context-param>
+
+	 <filter>
+	    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+	    <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+	    <servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+	
+	
+	
   <!-- Struts2 Filter -->
   <filter>
       <filter-name>Struts2</filter-name>

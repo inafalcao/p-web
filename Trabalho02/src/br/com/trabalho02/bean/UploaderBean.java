@@ -1,5 +1,10 @@
 package br.com.trabalho02.bean;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +13,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
+
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.com.trabalho02.entidade.Arquivo;
 import br.com.trabalho02.entidade.Diretorio;
@@ -42,6 +52,8 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	
 	private Diretorio deleteDiretorio;
 	
+	private UploadedFile file;
+	
 	@PostConstruct
 	public void inicializar() {
 		try {
@@ -63,9 +75,9 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			// USAR ESSA VERSÃO QUANDO RECUPERAR USUÁRIO DA SESSÃO
 			if(usuario!=null && usuario.getRaiz() != null) {
 				//diretorio = repository.findBy(usuario.getRaiz().getId());
-				
+				diretorio = usuario.getRaiz();
 				// está dando erro aqui
-				diretorio.setSubdiretorios(repository.obterPor(Diretorio.class, "pai.id", usuario.getRaiz().getId()));
+				//diretorio.setSubdiretorios(repository.obterPor(Diretorio.class, "pai.id", usuario.getRaiz().getId()));
 			} else {
 				diretorio = new Diretorio();
 				diretorio.setNome("raiz");
@@ -102,7 +114,7 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void removerArquivo(Arquivo arquivo)
 	{
 		try {
@@ -112,6 +124,20 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			e.printStackTrace();
 		}
 	}
+	
+	public void carregarArquivo() {
+        if(getFile() != null) {  
+        	try {
+        		novoArquivo.setConteudo(IOUtils.toByteArray(getFile().getInputstream()));
+        		novoArquivo.setNome(getFile().getFileName());
+        		adicionarArquivo();
+        	} catch(IOException e) {
+        		e.printStackTrace();
+        	} catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+    }
 
 	public void adicionarDiretorio() throws Exception {
 		novoDiretorio.setPai(diretorio);
@@ -132,9 +158,7 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 		novoArquivo = new Arquivo();
 	
 	}
-	
-	
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -220,6 +244,14 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	public void setDiretorioShare(Diretorio diretorioShare) {
 		this.diretorioShare = diretorioShare;
 	}
-	
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+
 	
 }
