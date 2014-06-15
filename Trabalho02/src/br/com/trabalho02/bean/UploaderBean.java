@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -30,7 +31,7 @@ import br.com.trabalho02.repository.UsuarioRepository;
 import br.com.trabalho02.repository.UsuarioRepositoryImpl;
 
 @ManagedBean(name = "uploaderBean")
-@ViewScoped
+@SessionScoped
 public class UploaderBean extends BaseControllerBean<Diretorio> {
 	
 	private static final long serialVersionUID = 1428374L;
