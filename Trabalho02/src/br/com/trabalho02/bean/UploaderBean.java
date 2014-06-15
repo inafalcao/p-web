@@ -68,15 +68,9 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 			novoDiretorio = new Diretorio();
 			novoArquivo = new Arquivo();
 			
-			// TEMPORÁRIO
-			//diretorio = repository.obterPorCampo(Diretorio.class, "nome", "raiz");
-			
 			// USAR ESSA VERSÃO QUANDO RECUPERAR USUÁRIO DA SESSÃO
 			if(usuario!=null && usuario.getRaiz() != null) {
-				//diretorio = repository.findBy(usuario.getRaiz().getId());
 				diretorio = usuario.getRaiz();
-				// está dando erro aqui
-				//diretorio.setSubdiretorios(repository.obterPor(Diretorio.class, "pai.id", usuario.getRaiz().getId()));
 			} else {
 				diretorio = new Diretorio();
 				diretorio.setNome("raiz");
@@ -87,12 +81,10 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 				usuarioRepository.save(usuario);
 			}
 			
-			
 			if(diretorio.getSubdiretorios() == null)
 				diretorio.setSubdiretorios(new ArrayList<Diretorio>());
 			if(diretorio.getArquivos() == null)
 				diretorio.setArquivos(new ArrayList<Arquivo>());
-			
 			
 			setEntity(new Diretorio());
 			
@@ -139,6 +131,12 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
     }
 
 	public void adicionarDiretorio() throws Exception {
+		
+		if(diretorio.getSubdiretorios() == null)
+			diretorio.setSubdiretorios(new ArrayList<Diretorio>());
+		if(diretorio.getArquivos() == null)
+			diretorio.setArquivos(new ArrayList<Arquivo>());
+		
 		novoDiretorio.setPai(diretorio);
 		repository.save(novoDiretorio);
 		diretorio.getSubdiretorios().add(novoDiretorio);

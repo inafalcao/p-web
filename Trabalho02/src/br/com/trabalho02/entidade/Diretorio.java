@@ -2,7 +2,6 @@ package br.com.trabalho02.entidade;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +17,7 @@ public class Diretorio extends Entidade {
 	@Column(name = "nome")
 	private String nome;
 
-	@OneToMany()
+	@OneToMany(mappedBy = "pai", fetch = FetchType.LAZY)
 	private List<Diretorio> subdiretorios;
 
 	@OneToMany(mappedBy = "diretorio")
