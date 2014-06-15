@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.IOUtils;
@@ -109,8 +110,9 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	public void removerArquivo(Arquivo arquivo)
 	{
 		try {
-			System.out.println("remover!");
+			diretorio.getArquivos().remove(arquivo);
 			arquivoRepository.remove(arquivo);
+			repository.save(diretorio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -130,6 +132,12 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
         }
     }
 
+	public void logout() throws IOException {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	    ec.invalidateSession();
+	    ec.redirect(ec.getRequestContextPath() + "/Login.action");
+	}
+	
 	public void adicionarDiretorio() throws Exception {
 		
 		if(diretorio.getSubdiretorios() == null)
@@ -140,6 +148,7 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 		novoDiretorio.setPai(diretorio);
 		repository.save(novoDiretorio);
 		diretorio.getSubdiretorios().add(novoDiretorio);
+
 		repository.save(diretorio);
 		novoDiretorio = new Diretorio();
 	}

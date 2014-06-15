@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 
 import br.com.trabalho02.db.HibernateSession;
+import br.com.trabalho02.db.Sessao;
 import br.com.trabalho02.entidade.Entidade;
 
 import java.lang.reflect.ParameterizedType;
@@ -28,27 +29,29 @@ public class RepositoryImpl<E extends Entidade> implements Repository<E> {
     Session session;
 	
     RepositoryImpl() {
-    	factory = HibernateSession.getSessionFactory();
-    	session = factory.openSession();
+    	/*factory = HibernateSession.getSessionFactory();
+    	session = factory.openSession();*/
     }
    
     public E save(E entidade)  throws Exception {
-    	Transaction tx = session.beginTransaction();
-        session.save(entidade);
+
+    	Transaction tx = Sessao.getInstance().getSession().beginTransaction();
+    	Sessao.getInstance().getSession().save(entidade);
         tx.commit();
+        
         return entidade;
     }
 
     @Override
     public void remove(E entidade)  throws Exception {
-		Transaction tx = session.beginTransaction();
-		session.delete(entidade);
+		Transaction tx = Sessao.getInstance().getSession().beginTransaction();
+		Sessao.getInstance().getSession().delete(entidade);
 		tx.commit();
     }
 
     @Override
     public E findBy(Long id) {
-		return (E) session.get(getPersistentClass(), new Long(id));
+		return (E) Sessao.getInstance().getSession().get(getPersistentClass(), new Long(id));
     }
 
     @SuppressWarnings("unchecked")
@@ -62,7 +65,7 @@ public class RepositoryImpl<E extends Entidade> implements Repository<E> {
 
     @Override
     public List<E> findAll() {
-    	Criteria criteria = session.createCriteria(getPersistentClass());
+    	Criteria criteria = Sessao.getInstance().getSession().createCriteria(getPersistentClass());
     	List<E> result = (List<E>) criteria.list();
         return result;
     }
@@ -76,7 +79,7 @@ public class RepositoryImpl<E extends Entidade> implements Repository<E> {
 	public E obterPorCampo(Class cls, Serializable campo, Serializable valor)
 			throws NoResultException {
 		
-		Criteria criteria = session.createCriteria(getPersistentClass()); 
+		Criteria criteria = Sessao.getInstance().getSession().createCriteria(getPersistentClass()); 
 		criteria.add( Expression.like((String) campo, valor) );
 		List<E> result = (List<E>) criteria.list();
 		
@@ -89,7 +92,7 @@ public class RepositoryImpl<E extends Entidade> implements Repository<E> {
 	
 	@Override
 	public List<E> obterPor(Class cls, Serializable campo, Serializable valor){
-		Criteria criteria = session.createCriteria(getPersistentClass());
+		Criteria criteria = Sessao.getInstance().getSession().createCriteria(getPersistentClass());
 		criteria.add( Expression.like((String) campo, valor) );
 		List<E> result = (List<E>) criteria.list();
 		return  result;

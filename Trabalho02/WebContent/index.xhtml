@@ -27,16 +27,12 @@
 	<h:form enctype="multipart/form-data">
 	<header class="content-header">
 	<div class="header-information pull-left">
-
-		<!-- <s:url var="urlVoltarBotao" action="voltar-botao">
-			</s:url> -->
-		<a href="" class="btn btn-icon pull-left"> <i
-			class="fa fa-arrow-circle-left"></i>
-		</a>
+		
+			<h:commandLink value="logout" styleClass="btn btn-icon pull-left  fa fa-arrow-circle-left" 
+			action="#{uploaderBean.logout}" />
 
 		<h1 class="content-title pull-right">
-			<!-- <s:property value="diretorioAtual" /> -->
-			dir atual
+			<h:outputText value="#{uploaderBean.usuario.login}"></h:outputText>
 		</h1>
 	</div>
 
@@ -58,7 +54,7 @@
 
 			<ol class="breadcrumb bg-none pull-left hide-xs">
 
-				<li><a href="">Home</a></li>
+				<li><a href="">Raiz</a></li>
 
 				<!-- <s:iterator value="caminho" var="dir">
 				
@@ -68,7 +64,7 @@
 
 
 				<li><a href="">
-						<!-- <s:property value="#dir" /> -->dir
+						<!-- <s:property value="#dir" /> -->
 				</a></li>
 
 				<!-- </s:iterator> -->
@@ -81,6 +77,36 @@
 				<small><h:outputText value="#{uploaderBean.usuario.tamanhoCota}" /> MB restantes</small>
 			</h3>
 		</div>
+		
+		
+		
+		<!-- LISTAR DIREORIOS COMPARTILHADOS -->		
+		<h:dataTable value="#{uploaderBean.usuario.shared}" var="dir" style="width: 100%;">
+		
+		<h:column>
+		<a class="icon-remover" href="">
+		</a> <a href="">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<div class="todo-list">
+						<div class="todo-checker">
+							<i class="fa fa-folder"></i>
+						</div>
+						
+						<div class="label label-primary">
+					
+						</div>
+
+						<div class="todo-text">
+							#{dir.nome} 
+						</div>
+					</div>
+				</li>
+			</ul>
+			</a>
+		</h:column>
+		</h:dataTable>
+		
 
 		<!-- LISTAR DIRET�RIOS -->		
 		<h:dataTable value="#{uploaderBean.diretorio.subdiretorios}" var="dir" style="width: 100%;">
@@ -106,14 +132,9 @@
 								<!-- <i class="fa fa-share-alt"></i> --> Compartilhar
 								<h:commandLink  id="showDialogCompartilhar2" rel="leanModal" href="#modalCompartilhar" styleClass="fa fa-share-alt btn btn-icon"
 									action="#{uploaderBean.setDiretorioShare(dir)}">
-							</h:commandLink> 
+								</h:commandLink> 
 							</a>
 					
-							<!-- <h:commandLink  id="showDialogCompartilhar2" rel="leanModal" href="#modalCompartilhar" styleClass="fa fa-share-alt btn btn-icon"
-									action="#{uploaderBean.setDiretorioShare(dir)}">
-							</h:commandLink> -->
-						
-				
 						</div>
 
 						<div class="todo-text">
@@ -131,8 +152,9 @@
 		
 		<h:column>
 
-		<a class="icon-remover" href=""> <i class="fa fa-times "></i>
-		</a> <a href="">
+		<h:commandLink styleClass="fa fa-times icon-remover" 
+			action="#{uploaderBean.removerArquivo(arq)}"></h:commandLink>
+		<a href="">
 			<ul class="list-group">
 				<li class="list-group-item">
 					<div class="todo-list">
