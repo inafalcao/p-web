@@ -140,7 +140,9 @@
 							<i class="fa fa-file-o"></i>
 						</div>
 						<div class="label label-primary">
-							nomenome
+							<p:commandButton value="Download" ajax="false" action="#{uploaderBean.downloadArquivo(arq)}" icon="ui-icon-arrowthick-1-s">
+						        <p:fileDownload value="#{uploaderBean.fileDownload}" />
+						    </p:commandButton>
 						</div>
 						<div class="todo-text">
 							#{arq.nome}

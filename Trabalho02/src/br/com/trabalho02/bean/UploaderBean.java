@@ -1,10 +1,8 @@
 package br.com.trabalho02.bean;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +11,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.Part;
 
 import org.apache.commons.io.IOUtils;
-import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.trabalho02.entidade.Arquivo;
@@ -53,6 +51,7 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 	private Diretorio deleteDiretorio;
 	
 	private UploadedFile file;
+	private StreamedContent fileDownload;
 	
 	@PostConstruct
 	public void inicializar() {
@@ -158,6 +157,11 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 		novoArquivo = new Arquivo();
 	
 	}
+	
+	public void downloadArquivo(Arquivo arquivo) {        
+		InputStream is = new ByteArrayInputStream(arquivo.getConteudo());
+		fileDownload = new DefaultStreamedContent(is, null, arquivo.getNome());
+    }
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -253,5 +257,12 @@ public class UploaderBean extends BaseControllerBean<Diretorio> {
 		this.file = file;
 	}
 
-	
+	public StreamedContent getFileDownload() {
+		return fileDownload;
+	}
+
+	public void setFileDownload(StreamedContent fileDownload) {
+		this.fileDownload = fileDownload;
+	}
+
 }
